@@ -1,23 +1,3 @@
-# Copyright: Ali Sheharyar (Texas AM University at Qatar), Michael Aupetit (Qatar Computing Research Institute)
-# October 25, 2020
-# Code Version 2
-# This file is part of "Enhanced MA plot"
-# 
-# "Enhanced MA plot" is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version. (GPL-3 or later)
-# 
-# "Enhanced MA plot" is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with "Enhanced MA plot" in the "COPYING" file  If not, see <https://www.gnu.org/licenses/>.
-#
-# Please cite the Github the code as: 
-# https://github.com/alisheharyar/Enhanced_MA_Plot
 
 library(DT) # R interface to js data table library for displaying an interative table
 library(data.table) # faster than data.frame data structure
@@ -29,6 +9,7 @@ library(shinyWidgets)
 library(shinyBS) # tooltip
 library(shinyhelper) # help button
 library(shinyalert) # popup alert
+library(shinythemes)
 
 source ("utils.R") #triggers for the interface
 source ("ggmaplot2.R") #new maplot with yellow color for NA data

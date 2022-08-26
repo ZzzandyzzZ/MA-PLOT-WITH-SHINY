@@ -88,8 +88,8 @@ server <- function(input, output,session) {
       showModal(modalDialog(
         tagList(), 
         title="This will reset all selections and replace currently loaded data, do you want to continue?",
-        footer = tagList(actionButton("confirmLoadTest", "Yes, load test data"),
-                         modalButton("No, cancel")
+        footer = tagList(actionButton("confirmLoadTest", "Si, Cargar datos de prueba"),
+                         modalButton("No, cancelar")
         )
       ))
   })
@@ -158,7 +158,7 @@ observeEvent(input$genesToTrack,{
     # trigger plots
     trigMAcore$trigger()
     
-    html(id="label_track_genes", paste("Tracked Genes (",length(handle$genesToTrack),")"))
+    html(id="label_track_genes", paste("Genes Guardados (",length(handle$genesToTrack),")"))
     
   })
 
@@ -235,7 +235,7 @@ observeEvent(input$genesToTrack,{
     trigMAplot$depend()
     
     if (!is.null(handle$MAdataCur)){
-      
+      print(input)
       filterX <- NULL
       filterY <- NULL
       
@@ -536,7 +536,7 @@ observe({
     sel <- maDataSelected$geneName
     
     updateTextAreaInput(session, inputId="selectedGenes_postFilter", label = NULL, value = implode(sort(sel), "  "))
-    html(id="label_selectedGenes_postFilter", paste("Filtered Genes (",length(sel), ")"))
+    html(id="label_selectedGenes_postFilter", paste("Genes Seleccionados (",length(sel), ")"))
     
     handle$selectedMAdata<<-maDataSelected
     handle$selectedGenes<<-sel
