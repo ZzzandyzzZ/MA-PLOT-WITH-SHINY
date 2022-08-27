@@ -108,15 +108,38 @@ server <- function(input, output,session) {
       initUI(session)
       
       updateActionButton(session,inputId="buttonLoadTestData", icon =  icon("ok",lib = "glyphicon"))
-      
+      updateActionButton(session,inputId="plotMA", icon =  icon("ok",lib = "glyphicon"))
       # replot
       trigMAplot$trigger()
     }
     # Remove modal dialog
     removeModal()
-  })  
-  
-  
+  })
+
+  # Show Plots
+  observeEvent(input$plotMA,{
+    inFile <- input$plotMA
+    if (is.null(inFile))
+    {
+    }else{
+      updateActionButton(session,inputId="plotHistogram", icon = character(0))
+      updateActionButton(session,inputId="plotMA", icon =  icon("ok",lib = "glyphicon"))
+      handle$plotSelected<<-"MA"
+      trigMAplot$trigger()
+    }
+  })
+  observeEvent(input$plotHistogram,{
+    inFile <- input$plotHistogram
+    if (is.null(inFile))
+    {
+    }else{
+      updateActionButton(session,inputId="plotMA", icon = character(0))
+      updateActionButton(session,inputId="plotHistogram", icon =  icon("ok",lib = "glyphicon"))
+      handle$plotSelected<<-"Histogram"
+      trigMAplot$trigger()
+    }
+  })
+
   ## RESET UI
   observeEvent(input$buttonResetUI,{
     showModal(modalDialog(
@@ -251,9 +274,18 @@ observeEvent(input$genesToTrack,{
                   filterX=filterX, filterY=filterY)
       
       handle$curPlot <<- g
-      
-      p <- ggplotly(g, source="maPlot", tooltip=c('text'))
-      
+      if (!is.null(handle$plotSelected)){
+        if (handle$plotSelected == 'MA'){
+          p <- ggplotly(g, source="maPlot", tooltip=c('text'))
+        }
+        else {
+          p <- plot_ly(x = handle$MAdataCur$pAdj[handle$MAdataCur$baseMean > 1], type = "histogram")
+        }
+      }
+      else{
+        p <- ggplotly(g, source="maPlot", tooltip=c('text'))
+      }
+
       p <- layout(p, dragmode = "select")
       event_register(p, "plotly_selected")
       
